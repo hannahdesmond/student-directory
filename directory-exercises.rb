@@ -2,7 +2,7 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   students = []
-  name = gets.chomp
+  name = gets.delete("\n")
   while !name.empty? do
     while true do
       puts "What is the student's cohort?"
@@ -21,7 +21,7 @@ def input_students
       hobby: hobby, country: country}
     puts "Now we have #{students.count} students"
     puts "What is the name of the next student?"
-    name = gets.chomp
+    name = gets.delete("\n")
   end
   students
 end
@@ -34,7 +34,7 @@ end
 def print(students)
   students_array = []
   puts "Which cohort do you want to print?"
-  input = gets.chomp
+  input = gets.delete("\n")
   students.each do |student_hash|
     student_hash.each do |key, value|
       if key == :cohort && value == input.to_sym
