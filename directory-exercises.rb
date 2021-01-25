@@ -23,8 +23,8 @@ def input_students
     puts "What is the name of the next student?"
     name = gets.delete("\n")
   end
-  if !students.count == 0
-    students
+  if students.count != 0
+    return students
   else
     puts "There are no students"
   end
@@ -57,7 +57,11 @@ def print_footer(students)
   if students == nil
     puts "-----------".center(50)
   else
-    puts "Overall, we have #{students.count} great students".center(50)
+    if students.count == 1
+      puts "Overall, we have #{students.count} great student".center(50)
+    else
+      puts "Overall, we have #{students.count} great students".center(50)
+    end
   end
 end
 
