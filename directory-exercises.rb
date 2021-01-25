@@ -23,7 +23,11 @@ def input_students
     puts "What is the name of the next student?"
     name = gets.delete("\n")
   end
-  students
+  if !students.count == 0
+    students
+  else
+    puts "There are no students"
+  end
 end
 
 def print_header
@@ -32,6 +36,9 @@ def print_header
 end
 
 def print(students)
+  if students == nil
+    puts "--------------".center(50)
+  else
   students_array = []
   puts "Which cohort do you want to print?"
   input = gets.delete("\n")
@@ -43,30 +50,17 @@ def print(students)
     end
   end
   puts students_array.join(", ")
-end
- # There is an array
- # Ask user for the cohort they would like to see
- # if the hash contains the desired cohort, print the name
-
-
-=begin
-  counter = 0
-  while true do
-    hash = students[counter]
-    puts "#{counter + 1}. #{hash[:name]} "
-    puts "Hobbies: #{hash[:hobby]}, country: #{hash[:country]} "
-    puts "(Cohort #{hash[:cohort]})"
-    counter +=1
-    if counter == students.count
-      break
-    end
   end
-=end
-
+end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(50)
+  if students == nil
+    puts "-----------".center(50)
+  else
+    puts "Overall, we have #{students.count} great students".center(50)
+  end
 end
+
 students = input_students
 print_header
 print(students)
