@@ -101,7 +101,7 @@ def load_students
   end
   file.close
 end
-
+=begin
 def try_load_students
   filename = ARGV.first
   return if filename.nil?
@@ -113,8 +113,9 @@ def try_load_students
     exit
   end
 end
+=end
 
 
 
-try_load_students
+# try_load_students
 interactive_menu
