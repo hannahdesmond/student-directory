@@ -1,8 +1,13 @@
+@students = []
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   students = []
   name = gets.delete("\n")
+  if name.empty?
+    puts "There are no students"
+  end
   while !name.empty? do
     while true do
       puts "What is the student's cohort?"
@@ -17,17 +22,16 @@ def input_students
       break
       end
     end
-    students << {name: name, cohort: cohort_string.to_sym,
+    @students << {name: name, cohort: cohort_string.to_sym,
       hobby: hobby, country: country}
-    puts "Now we have #{students.count} students"
-    puts "What is the name of the next student?"
-    name = gets.delete("\n")
-  end
-  if students.count != 0
-    return students
-  else
-    puts "There are no students"
-  end
+      if @students.count == 1
+        puts "Now we have 1 student"
+      elsif @students.count > 1
+        puts "Now we have #{@students.count} students"
+      end
+      puts "What is the name of the next student?"
+      name = gets.delete("\n")
+    end
 end
 
 def print_header
@@ -65,17 +69,22 @@ def print_footer(students)
   end
 end
 
-# students = input_students
-# print_header
-# print(students)
-# print_footer(students)
+def show_students
+  print_header
+  print(students)
+  print_footer(students)
+end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
 
 def interactive_menu
   students = []
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
+
 
     selection = gets.chomp
 
@@ -92,5 +101,3 @@ def interactive_menu
   # 3. Do what the user has asked
   end
 end
-
-puts interactive_menu
