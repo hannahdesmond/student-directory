@@ -58,14 +58,39 @@ def print_footer(students)
     puts "-----------".center(50)
   else
     if students.count == 1
-      puts "Overall, we have #{students.count} great student".center(50)
+      puts "Overall, we have 1 great student".center(50)
     else
       puts "Overall, we have #{students.count} great students".center(50)
     end
   end
 end
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
+# students = input_students
+# print_header
+# print(students)
+# print_footer(students)
+
+def interactive_menu
+  students = []
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+
+    selection = gets.chomp
+
+    case selection
+      when "1"
+      # input the students
+      when "2"
+      # show the students
+      when "9"
+        exit
+      else
+        puts "I don't know what you meant, try again."
+      end
+  # 3. Do what the user has asked
+  end
+end
+
+puts interactive_menu
