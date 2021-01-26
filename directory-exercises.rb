@@ -3,7 +3,7 @@
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = gets.delete("\n")
+  name = STDIN.gets.chomp
   if name.empty?
     puts "There are no students"
   end
@@ -12,7 +12,7 @@ def input_students
       puts "What is the student's cohort?"
       cohort_string = gets.chomp
       puts "Is this correct? #{cohort_string}? Put y or n"
-      answer = gets.chomp
+      answer = STDIN.gets.chomp
       if answer == 'y'
       break
       end
@@ -39,7 +39,7 @@ def print_students_list
   else
   students_array = []
   puts "Which cohort do you want to print?"
-  input = gets.delete("\n")
+  input = STDIN.gets.chomp
   @students.each do |student_hash|
     student_hash.each do |key, value|
       if key == :cohort && value == input.to_sym
@@ -106,8 +106,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
@@ -115,13 +115,25 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exist?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
 
-
+try_load_students
 interactive_menu
