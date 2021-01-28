@@ -1,11 +1,7 @@
 @students = []
 
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
+  puts "1. Input the students\n2. Show the students\n3. Save the list to students.csv\n4. Load the list from students.csv\n9. Exit"
 end
 
 def interactive_menu
@@ -20,7 +16,7 @@ def process(selection)
     when "1"
       input_students
     when "2"
-     show_students
+      show_students
     when "3"
       save_students
     when "4"
@@ -77,8 +73,8 @@ def show_students
   print_footer
 end
 
-def add_to_list
-  @students << {name: @name, cohort: :november}
+def add_to_list(name)
+  @students << {name: name, cohort: :november}
 end
 
 def save_students
@@ -89,33 +85,31 @@ def save_students
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
+    puts "Your list of students has been saved"
+    print_students_list
   end
   file.close
 end
 
 def load_students
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    add_to_list
-  end
-  file.close
-end
-=begin
-def try_load_students
-  filename = ARGV.first
-  return if filename.nil?
-  if File.exist?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
+  puts "Which file would you like to load from?"
+  requested_filename = gets.chomp
+  loop do
+  if File.file?(requested_filename)
+    file = File.open(requested_filename, "r")
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      add_to_list(name)
+    end
+    puts "The students have been loaded from #{requested_filename}"
+    print_students_list
+    file.close
+    break
   else
-    puts "Sorry, #{filename} doesn't exist."
-    exit
+   puts  "File does not exist. Try again."
+   requested_filename = gets.chomp
   end
 end
-=end
+end
 
-
-
-# try_load_students
 interactive_menu
