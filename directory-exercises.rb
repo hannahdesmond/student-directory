@@ -95,15 +95,15 @@ def load_students
   puts "Which file would you like to load from?"
   requested_filename = gets.chomp
   loop do
-  if File.file?(requested_filename)
-    file = File.open(requested_filename, "r")
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      add_to_list(name)
-    end
-    puts "The students have been loaded from #{requested_filename}"
-    print_students_list
-    file.close
+    if File.file?(requested_filename)
+      File.open(requested_filename, "r") do |file|
+        file.readlines.each do |line|
+          name, cohort = line.chomp.split(",")
+          add_to_list(name)
+        end
+        puts "The students have been loaded from #{requested_filename}"
+        print_students_list
+      end
     break
   else
    puts  "File does not exist. Try again."
