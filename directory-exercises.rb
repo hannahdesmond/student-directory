@@ -80,7 +80,7 @@ end
 def save_students
   # open the file for writing
   file = File.open("students.csv", "w")
-  # iterate over the array of students
+  # iterate over the array of student
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -93,13 +93,12 @@ end
 
 def load_students
   require 'csv'
-  file = CSV.read('students.csv')
-    file.each do |student|
-      name = student[0]
-      add_to_list(name)
-    end
-    puts "The students have been loaded from students.csv"
-    print_students_list
+  CSV.foreach('students.csv') do |row|
+    name = row[0]
+    add_to_list(name)
+  end
+  puts "The students have been loaded from students.csv"
+  print_students_list
 end
 
 
