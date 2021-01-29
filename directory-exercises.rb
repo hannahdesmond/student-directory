@@ -92,24 +92,15 @@ def save_students
 end
 
 def load_students
-  puts "Which file would you like to load from?"
-  requested_filename = gets.chomp
-  loop do
-    if File.file?(requested_filename)
-      File.open(requested_filename, "r") do |file|
-        file.readlines.each do |line|
-          name, cohort = line.chomp.split(",")
-          add_to_list(name)
-        end
-        puts "The students have been loaded from #{requested_filename}"
-        print_students_list
-      end
-    break
-  else
-   puts  "File does not exist. Try again."
-   requested_filename = gets.chomp
-  end
+  require 'csv'
+  file = CSV.read('students.csv')
+    file.each do |student|
+      name = student[0]
+      add_to_list(name)
+    end
+    puts "The students have been loaded from students.csv"
+    print_students_list
 end
-end
+
 
 interactive_menu
